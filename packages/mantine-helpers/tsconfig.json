@@ -17,8 +17,8 @@
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
     "emitDeclarationOnly": true,
-    "types": ["cypress"]
+    "types": ["cypress"],
   },
-  "include": ["./src/**/*.ts", "./src/**/*.js"],
+  "include": ["./src/**/*.ts", "./src/**/*.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

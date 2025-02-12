@@ -2,6 +2,14 @@
   "name": "@avenue3-dev/cypress-mantine-helpers",
   "version": "0.0.0",
   "description": "A collection of helpers for testing Mantine components with Cypress",
+  "homepage": "https://github.com/avenue3-dev/cypress-mantine-helpers",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/avenue3-dev/cypress-mantine-helpers"
+  },
+  "bugs": {
+    "url": "https://github.com/rowellx68/cypress-mantine-helpers/issues"
+  },
   "publishConfig": {
     "access": "public",
     "provenance": true
@@ -13,6 +21,12 @@
     "prebuild": "rm -rf ./dist",
     "build": "rollup -c && rollup -c rollup.dts.config.mjs && rm ./dist/index.d.ts"
   },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE.md"
+  ],
   "keywords": [
     "cypress",
     "mantine",
@@ -20,6 +34,12 @@
   ],
   "author": "Avenue3 Ltd.",
   "license": "MIT",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
     "@rollup/plugin-commonjs": "^28.0.2",

@@ -7,7 +7,6 @@ import { typescriptPaths } from 'rollup-plugin-typescript-paths'
 
 const entries = fg.globSync(['dist/**/*.d.ts']).map((file) => [
   path.relative('dist', file.slice(0, file.length - 5)),
-  // eslint-disable-next-line no-undef
   fileURLToPath(new URL(file, import.meta.url)),
 ])
 
