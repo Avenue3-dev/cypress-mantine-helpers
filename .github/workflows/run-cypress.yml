@@ -1,0 +1,40 @@
+name: Build and test
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+          cache-dependency-path: './pnpm-lock.yaml'
+
+      - name: Install dependencies
+        uses: cypress-io/github-action@v6
+        with:
+          runTests: false
+
+      - name: Build
+        run: pnpm build
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: examples/basic
+          start: pnpm dev
+          wait-on: 'http://localhost:5173'
+          wait-on-timeout: 60
+          install: false
