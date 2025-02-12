@@ -19,8 +19,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
-          cache-dependency-path: './pnpm-lock.yaml'
+          cache: "pnpm"
+          cache-dependency-path: "./pnpm-lock.yaml"
 
       - name: Install dependencies
         uses: cypress-io/github-action@v6
@@ -35,6 +35,6 @@ jobs:
         with:
           working-directory: examples/basic
           start: pnpm dev
-          wait-on: 'http://localhost:5173'
+          wait-on: "http://localhost:5173"
           wait-on-timeout: 60
           install: false

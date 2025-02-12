@@ -26,8 +26,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
-          cache-dependency-path: './pnpm-lock.yaml'
+          cache: "pnpm"
+          cache-dependency-path: "./pnpm-lock.yaml"
 
       - run: pnpm install --frozen-lockfile
         env:
@@ -38,8 +38,8 @@ jobs:
       - uses: changesets/action@v1
         id: changesets
         with:
-          title: 'chore: version packages'
-          commit: 'chore: version packages'
+          title: "chore: version packages"
+          commit: "chore: version packages"
           publish: pnpm release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
