@@ -25,7 +25,7 @@
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-typescript": "^12.1.2",
     "@types/node": "^22.13.1",
-    "cypress": "^13.0.0",
+    "cypress": "^13.17.0",
     "fast-glob": "^3.3.3",
     "rollup": "^4.34.6",
     "rollup-plugin-dts": "^6.1.1",

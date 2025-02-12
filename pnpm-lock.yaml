@@ -39,7 +39,7 @@ importers:
         specifier: ^22.13.1
         version: 22.13.1
       cypress:
-        specifier: ^13.0.0
+        specifier: ^13.17.0
         version: 13.17.0
       fast-glob:
         specifier: ^3.3.3
