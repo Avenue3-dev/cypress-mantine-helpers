@@ -1,5 +1,11 @@
 # @avenue3-dev/cypress-mantine-helpers
 
+## 0.1.1
+
+### Patch Changes
+
+- [`c76404e`](https://github.com/Avenue3-dev/cypress-mantine-helpers/commit/c76404e9ab5eefa51304338e1a8edc52b13e8eae) Thanks [@rowellx68](https://github.com/rowellx68)! - fix: update repository url to match provenance
+
 ## 0.1.0
 
 ### Minor Changes
