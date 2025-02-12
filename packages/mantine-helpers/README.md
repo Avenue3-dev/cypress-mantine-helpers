@@ -26,7 +26,7 @@ import '@avenue3-dev/cypress-mantine-helpers'
 
 ### `mantineSelect`
 
-Selects an option or options from a Mantine `Select`, `Multiselect`, or `Autocomplete` component.
+Selects an option or options from a Mantine `Select`, `MultiSelect`, or `Autocomplete` component.
 
 ```ts
 // Select a single option by the label

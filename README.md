@@ -19,25 +19,25 @@ pnpm add @avenue3-dev/cypress-mantine-helpers
 Add the following to your `cypress/support/commands.ts` file:
 
 ```ts
-import "@avenue3-dev/cypress-mantine-helpers";
+import '@avenue3-dev/cypress-mantine-helpers'
 ```
 
 ## Commands
 
 ### `mantineSelect`
 
-Selects an option or options from a Mantine `Select`, `Multiselect`, or `Autocomplete` component.
+Selects an option or options from a Mantine `Select`, `MultiSelect`, or `Autocomplete` component.
 
 ```ts
 // Select a single option by the label
-cy.get('[data-testid="select"]').mantineSelect("Option 1");
+cy.get('[data-testid="select"]').mantineSelect('Option 1')
 
 // Select multiple options by the labels
-cy.get('[data-testid="multiselect"]').mantineSelect(["Option 1", "Option 2"]);
+cy.get('[data-testid="multiselect"]').mantineSelect(['Option 1', 'Option 2'])
 
 // Select single by value
-cy.get('[data-testid="select"]').mantineSelect("option-1");
+cy.get('[data-testid="select"]').mantineSelect('option-1')
 
 // Select multiple by values
-cy.get('[data-testid="multiselect"]').mantineSelect(["option-1", "option-2"]);
+cy.get('[data-testid="multiselect"]').mantineSelect(['option-1', 'option-2'])
 ```
