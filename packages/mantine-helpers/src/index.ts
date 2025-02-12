@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-/// <reference types="cypress" />
-
-// workaround for global augmentation
-export {}
+export type MantineSelectFn = (
+  valueOrText: string | Array<string>,
+  options?: Partial<
+    Cypress.Loggable & Cypress.Timeoutable & Cypress.Withinable & Cypress.Shadow
+  >,
+) => Cypress.Chainable<JQuery<HTMLElement>>
 
 declare global {
   namespace Cypress {
     interface Chainable {
       /**
-       * Custom command to select an option in Mantine `Select`, `Multiselect` or `Autocomplete` component
+       * Custom command to select an option in Mantine `Select`, `MultiSelect` or `Autocomplete` component
        * @param valueOrText The text value or values to select
        *
        * @example
@@ -20,15 +22,7 @@ declare global {
        *   .mantineSelect(['Option 1', 'Option 2']);
        * ```
        */
-      mantineSelect(
-        valueOrText: string | Array<string>,
-        options?: Partial<
-          Cypress.Loggable &
-            Cypress.Timeoutable &
-            Cypress.Withinable &
-            Cypress.Shadow
-        >,
-      ): Chainable<JQuery<HTMLElement>>
+      mantineSelect: MantineSelectFn
     }
   }
 }
@@ -36,9 +30,7 @@ declare global {
 const selectOptions = (
   valueOrText: string | string[],
   subject: JQuery<HTMLElement>,
-  options?: Partial<
-    Cypress.Loggable & Cypress.Timeoutable & Cypress.Withinable & Cypress.Shadow
-  >,
+  options?: Parameters<MantineSelectFn>[1],
 ) => {
   const values = Array.isArray(valueOrText) ? valueOrText : [valueOrText]
   values.forEach((value) => {
