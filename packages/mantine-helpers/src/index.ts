@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-namespace */
 /// <reference types="cypress" />
 
-export {};
+// workaround for global augmentation
+export {}
 
 declare global {
   namespace Cypress {
@@ -26,7 +28,7 @@ declare global {
             Cypress.Withinable &
             Cypress.Shadow
         >,
-      ): Chainable<JQuery<HTMLElement>>;
+      ): Chainable<JQuery<HTMLElement>>
     }
   }
 }
@@ -38,41 +40,54 @@ const selectOptions = (
     Cypress.Loggable & Cypress.Timeoutable & Cypress.Withinable & Cypress.Shadow
   >,
 ) => {
-  const values = Array.isArray(valueOrText) ? valueOrText : [valueOrText];
+  const values = Array.isArray(valueOrText) ? valueOrText : [valueOrText]
   values.forEach((value) => {
     cy.wrap(subject, { log: false })
       .type(value, { force: true })
       .then((target) => {
-        cy.get(`#${target.attr("aria-controls")} [role="option"]`, options)
-          .contains(value)
-          .click();
-      });
-  });
-};
+        cy.get(
+          `#${target.attr('aria-controls')} [role="option"]`,
+          options,
+        ).each(($option) => {
+          const optionText = $option.text().trim()
+          const optionValue = $option.attr('value')?.trim()
+
+          if (optionText.includes(value)) {
+            cy.wrap($option, { log: false }).click()
+          } else if (optionValue?.includes(value)) {
+            cy.wrap($option, { log: false }).click()
+          }
+        })
+      })
+  })
+}
 
 Cypress.Commands.add(
-  "mantineSelect",
-  { prevSubject: "element" },
+  'mantineSelect',
+  { prevSubject: 'element' },
   (subject, valueOrText, options) => {
-    if (typeof valueOrText !== "string" && !Array.isArray(valueOrText)) {
-      throw new Error("valueOrText must be a string or an array of strings");
+    if (typeof valueOrText !== 'string' && !Array.isArray(valueOrText)) {
+      throw new Error('valueOrText must be a string or an array of strings')
     }
+
     if (
       valueOrText === null ||
       valueOrText === undefined ||
       valueOrText.length === 0
     ) {
-      throw new Error("valueOrText cannot be empty");
+      throw new Error('valueOrText cannot be empty')
     }
-    if (subject.hasClass("mantine-InputWrapper-root")) {
+
+    if (subject.hasClass('mantine-InputWrapper-root')) {
       cy.wrap(subject, { log: false })
-        .get("input.mantine-Input-input")
+        .get('input.mantine-Input-input')
         .then((input) => {
-          selectOptions(valueOrText, input, options);
-        });
-    } else if (subject.is("input")) {
-      selectOptions(valueOrText, subject, options);
+          selectOptions(valueOrText, input, options)
+        })
+    } else if (subject.is('input')) {
+      selectOptions(valueOrText, subject, options)
     }
-    return cy.wrap(subject, { log: false });
+
+    return cy.wrap(subject, { log: false })
   },
-);
+)
