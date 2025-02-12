@@ -2,7 +2,7 @@
   "name": "cypress-mantine-helpers-mono-repo",
   "version": "0.0.0",
   "scripts": {
-    "build": "pnpm -r build",
+    "build": "pnpm -F @avenue3-dev/cypress-mantine-helpers build",
     "format": "prettier --write .",
     "release": "pnpm changeset publish",
     "cc:changeset": "pnpm changeset-conventional"
