@@ -10,7 +10,10 @@ declare global {
   namespace Cypress {
     interface Chainable {
       /**
-       * Custom command to select an option in Mantine `Select`, `MultiSelect` or `Autocomplete` component
+       * Custom command to select an option in Mantine `Select`, `MultiSelect` or `Autocomplete` component.
+       *
+       * When the component is not searchable, you will be able to pass the label or value of the option to select. However, when the component is searchable, you will need to pass the label of the option to select.
+       *
        * @param valueOrText The text value or values to select
        *
        * @example
@@ -33,25 +36,40 @@ const selectOptions = (
   options?: Parameters<MantineSelectFn>[1],
 ) => {
   const values = Array.isArray(valueOrText) ? valueOrText : [valueOrText]
-  values.forEach((value) => {
-    cy.wrap(subject, { log: false })
-      .type(value, { force: true })
-      .then((target) => {
-        cy.get(
-          `#${target.attr('aria-controls')} [role="option"]`,
-          options,
-        ).each(($option) => {
-          const optionText = $option.text().trim()
-          const optionValue = $option.attr('value')?.trim()
+  const selector = (target: JQuery<HTMLElement>, value: string) => {
+    cy.get(`#${target.attr('aria-controls')} [role="option"]`, options).each(
+      ($option) => {
+        const optionText = $option.text().trim()
+        const optionValue = $option.attr('value')?.trim()
 
-          if (optionText.includes(value)) {
-            cy.wrap($option, { log: false }).click()
-          } else if (optionValue?.includes(value)) {
-            cy.wrap($option, { log: false }).click()
-          }
+        if (optionText.includes(value)) {
+          cy.wrap($option, { log: false }).click()
+        } else if (optionValue?.includes(value)) {
+          cy.wrap($option, { log: false }).click()
+        }
+      },
+    )
+  }
+
+  if (subject.attr('readonly')) {
+    values.forEach((value) => {
+      cy.wrap(subject, { log: false })
+        .click({ force: true })
+        .then((target) => {
+          selector(target, value)
+          cy.wrap(target, { log: false }).click({ force: true, log: false })
         })
-      })
-  })
+    })
+  } else {
+    values.forEach((value) => {
+      cy.wrap(subject, { log: false })
+        .type(value, { force: true })
+        .then((target) => {
+          selector(target, value)
+          cy.wrap(target, { log: false }).click({ force: true, log: false })
+        })
+    })
+  }
 }
 
 Cypress.Commands.add(
