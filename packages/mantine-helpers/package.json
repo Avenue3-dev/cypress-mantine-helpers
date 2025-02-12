@@ -1,5 +1,5 @@
 {
-  "name": "cypress-mantine-helpers",
+  "name": "@avenue3-dev/cypress-mantine-helpers",
   "version": "0.0.0",
   "description": "A collection of helpers for testing Mantine components with Cypress",
   "publishConfig": {
