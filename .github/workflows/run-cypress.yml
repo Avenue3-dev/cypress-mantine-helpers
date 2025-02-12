@@ -35,6 +35,7 @@ jobs:
         with:
           working-directory: examples/basic
           start: pnpm dev
-          wait-on: "http://localhost:5173"
+          wait-on: "http://localhost:5176"
           wait-on-timeout: 60
           install: false
+          config-file: cypress.config.mts
