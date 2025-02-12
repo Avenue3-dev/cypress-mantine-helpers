@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "build": "pnpm -r build",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "release": "pnpm changeset publish",
+    "cc:changeset": "pnpm changeset-conventional"
   },
   "keywords": [],
   "author": "Avenue3 Ltd.",
