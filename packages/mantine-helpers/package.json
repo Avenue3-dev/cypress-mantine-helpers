@@ -1,6 +1,6 @@
 {
   "name": "@avenue3-dev/cypress-mantine-helpers",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A collection of helpers for testing Mantine components with Cypress",
   "homepage": "https://github.com/Avenue3-dev/cypress-mantine-helpers",
   "repository": {
