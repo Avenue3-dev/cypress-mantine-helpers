@@ -38,4 +38,3 @@ jobs:
           wait-on: "http://localhost:5176"
           wait-on-timeout: 60
           install: false
-          config-file: cypress.config.mts
