@@ -1,5 +1,13 @@
 # @avenue3-dev/cypress-mantine-helpers
 
+## 0.1.2
+
+### Patch Changes
+
+- [#3](https://github.com/Avenue3-dev/cypress-mantine-helpers/pull/3) [`b91bab3`](https://github.com/Avenue3-dev/cypress-mantine-helpers/commit/b91bab380683149ce63a92777ca46dc77ae1d321) Thanks [@rowellx68](https://github.com/rowellx68)! - fix(mantineSelect): clear values before selecting
+
+  The components initial value will now be cleared before the new values are selected.
+
 ## 0.1.1
 
 ### Patch Changes
