@@ -5,10 +5,12 @@ import { fileURLToPath } from 'node:url'
 import dts from 'rollup-plugin-dts'
 import { typescriptPaths } from 'rollup-plugin-typescript-paths'
 
-const entries = fg.globSync(['dist/**/*.d.ts']).map((file) => [
-  path.relative('dist', file.slice(0, file.length - 5)),
-  fileURLToPath(new URL(file, import.meta.url)),
-])
+const entries = fg
+  .globSync(['dist/**/*.d.ts'])
+  .map((file) => [
+    path.relative('dist', file.slice(0, file.length - 5)),
+    fileURLToPath(new URL(file, import.meta.url)),
+  ])
 
 const baseConfig = {
   input: Object.fromEntries(entries),

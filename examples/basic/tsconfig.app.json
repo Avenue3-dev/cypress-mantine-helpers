@@ -22,7 +22,7 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
-    "types": ["cypress", "@avenue3-dev/cypress-mantine-helpers"],
+    "types": ["cypress", "@avenue3-dev/cypress-mantine-helpers"]
   },
   "include": ["src"]
 }
