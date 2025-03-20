@@ -2,7 +2,11 @@
 export type MantineSelectFn = (
   valueOrText: string | Array<string>,
   options?: Partial<
-    Cypress.Loggable & Cypress.Timeoutable & Cypress.Withinable & Cypress.Shadow
+    Cypress.Loggable &
+      Cypress.Timeoutable &
+      Cypress.Withinable &
+      Cypress.Shadow &
+      Cypress.ClearOptions
   >,
 ) => Cypress.Chainable<JQuery<HTMLElement>>
 
@@ -13,6 +17,8 @@ declare global {
        * Custom command to select an option in Mantine `Select`, `MultiSelect` or `Autocomplete` component.
        *
        * When the component is not searchable, you will be able to pass the label or value of the option to select. However, when the component is searchable, you will need to pass the label of the option to select.
+       *
+       * The command will forcibly clear the value(s) before selecting the option(s).
        *
        * @param valueOrText The text value or values to select
        *
@@ -55,6 +61,7 @@ const selectOptions = (
     values.forEach((value) => {
       cy.wrap(subject, { log: false })
         .click({ force: true })
+        .clear({ ...options, force: true })
         .then((target) => {
           selector(target, value)
           cy.wrap(target, { log: false }).click({ force: true, log: false })
@@ -63,6 +70,7 @@ const selectOptions = (
   } else {
     values.forEach((value) => {
       cy.wrap(subject, { log: false })
+        .clear(options)
         .type(value, { force: true })
         .then((target) => {
           selector(target, value)
