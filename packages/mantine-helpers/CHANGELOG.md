@@ -1,5 +1,13 @@
 # @avenue3-dev/cypress-mantine-helpers
 
+## 0.1.3
+
+### Patch Changes
+
+- [#5](https://github.com/Avenue3-dev/cypress-mantine-helpers/pull/5) [`b8f3a99`](https://github.com/Avenue3-dev/cypress-mantine-helpers/commit/b8f3a9933bb6f505a630c5009fdebf09514ec152) Thanks [@rowellx68](https://github.com/rowellx68)! - fix(mantineSelect): make clearing optional
+
+  Previously selected values can be cleared by passing `clearValues` as an option.
+
 ## 0.1.2
 
 ### Patch Changes
