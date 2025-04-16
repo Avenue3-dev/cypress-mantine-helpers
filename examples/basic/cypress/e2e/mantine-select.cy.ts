@@ -10,7 +10,9 @@ describe('MantineSelect', () => {
   })
 
   it('selects one option by text with initial value', () => {
-    cy.get('[data-testid="select-with-initial"]').mantineSelect('Angular')
+    cy.get('[data-testid="select-with-initial"]').mantineSelect('Angular', {
+      clearValues: true,
+    })
   })
 
   it('selects one option by value', () => {
@@ -24,6 +26,7 @@ describe('MantineSelect', () => {
   it('selects one option by text: searchable, initial value', () => {
     cy.get('[data-testid="select-searchable-with-initial"]').mantineSelect(
       'Angular',
+      { clearValues: true },
     )
   })
 
@@ -39,9 +42,10 @@ describe('MantineSelect', () => {
   })
 
   it('selects multiple options by value: initial value', () => {
-    cy.get('[data-testid="multi-select-with-initial"]').mantineSelect([
-      'value-svelte',
-    ])
+    cy.get('[data-testid="multi-select-with-initial"]').mantineSelect(
+      ['value-svelte'],
+      { clearValues: true },
+    )
   })
 
   it('selects multiple options by text: searchable', () => {
@@ -54,7 +58,7 @@ describe('MantineSelect', () => {
   it('selects multiple options by text: searchable, initial value', () => {
     cy.get(
       '[data-testid="multi-select-searchable-with-initial"]',
-    ).mantineSelect(['React'])
+    ).mantineSelect(['React'], { clearValues: true })
   })
 
   it('selects value by typing', () => {
@@ -62,6 +66,9 @@ describe('MantineSelect', () => {
   })
 
   it('selects value by typing: initial', () => {
-    cy.get('[data-testid="autocomplete-with-initial"]').mantineSelect('Angular')
+    cy.get('[data-testid="autocomplete-with-initial"]').mantineSelect(
+      'Angular',
+      { clearValues: true },
+    )
   })
 })

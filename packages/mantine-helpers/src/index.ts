@@ -6,7 +6,9 @@ export type MantineSelectFn = (
       Cypress.Timeoutable &
       Cypress.Withinable &
       Cypress.Shadow &
-      Cypress.ClearOptions
+      Cypress.ClearOptions & {
+        clearValues?: boolean
+      }
   >,
 ) => Cypress.Chainable<JQuery<HTMLElement>>
 
@@ -43,39 +45,49 @@ const selectOptions = (
 ) => {
   const values = Array.isArray(valueOrText) ? valueOrText : [valueOrText]
   const selector = (target: JQuery<HTMLElement>, value: string) => {
-    cy.get(`#${target.attr('aria-controls')} [role="option"]`, options).each(
-      ($option) => {
-        const optionText = $option.text().trim()
-        const optionValue = $option.attr('value')?.trim()
+    const targetId = target.attr('aria-controls')
 
-        if (optionText.includes(value)) {
-          cy.wrap($option, { log: false }).click()
-        } else if (optionValue?.includes(value)) {
-          cy.wrap($option, { log: false }).click()
-        }
-      },
-    )
+    if (!targetId) {
+      throw new Error('Target element does not have aria-controls attribute')
+    }
+
+    cy.get(`#${targetId} [role="option"]`, options).each(($option) => {
+      const optionText = $option.text().trim()
+      const optionValue = $option.attr('value')?.trim()
+
+      if (optionText.includes(value)) {
+        cy.wrap($option, { log: false }).click()
+      } else if (optionValue?.includes(value)) {
+        cy.wrap($option, { log: false }).click()
+      }
+    })
   }
 
   if (subject.attr('readonly')) {
     values.forEach((value) => {
-      cy.wrap(subject, { log: false })
-        .click({ force: true })
-        .clear({ ...options, force: true })
-        .then((target) => {
-          selector(target, value)
-          cy.wrap(target, { log: false }).click({ force: true, log: false })
-        })
+      const $subject = cy.wrap(subject, { log: false }).click({ force: true })
+
+      if (options?.clearValues) {
+        $subject.clear({ ...options, force: true })
+      }
+
+      $subject.then((target) => {
+        selector(target, value)
+        cy.wrap(target, { log: false }).click({ force: true, log: false })
+      })
     })
   } else {
     values.forEach((value) => {
-      cy.wrap(subject, { log: false })
-        .clear(options)
-        .type(value, { force: true })
-        .then((target) => {
-          selector(target, value)
-          cy.wrap(target, { log: false }).click({ force: true, log: false })
-        })
+      const $subject = cy.wrap(subject, { log: false }).click({ force: true })
+
+      if (options?.clearValues) {
+        $subject.clear({ ...options, force: true })
+      }
+
+      $subject.type(value, { force: true }).then((target) => {
+        selector(target, value)
+        cy.wrap(target, { log: false }).click({ force: true, log: false })
+      })
     })
   }
 }
@@ -84,6 +96,11 @@ Cypress.Commands.add(
   'mantineSelect',
   { prevSubject: 'element' },
   (subject, valueOrText, options) => {
+    Cypress.log({
+      $el: subject,
+      name: 'mantineSelect',
+    })
+
     if (typeof valueOrText !== 'string' && !Array.isArray(valueOrText)) {
       throw new Error('valueOrText must be a string or an array of strings')
     }
